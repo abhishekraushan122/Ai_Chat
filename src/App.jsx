@@ -6,7 +6,7 @@ export default function Chat() {
   const [reply, setReply] = useState("");
 
   const sendMessage = async () => {
-    const res = await axios.post("http://localhost:5000/chat", { message });
+    const res = await axios.post("https://ai-chat-gc96.vercel.app/chat", { message });
 
     setReply(res.data.reply);
   };
