@@ -48,6 +48,7 @@ export default function Chat() {
 
   // Send message
   const sendMessage = async () => {
+
     if (!message.trim()) return;
 
     let chatId = currentChatId;
@@ -72,7 +73,7 @@ export default function Chat() {
     );
 
     try {
-      const res = await axios.post("http://localhost:5000/chat", {
+      const res = await axios.post("https://ai-chat-gc96.vercel.app/chat", {
         message,
       });
 
