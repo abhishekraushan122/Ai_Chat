@@ -5,7 +5,7 @@ export default function Chat() {
   const [message, setMessage] = useState("");
   const [chats, setChats] = useState([]);
   const [currentChatId, setCurrentChatId] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   // Load chats from localStorage
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("chats")) || [];
@@ -71,7 +71,7 @@ export default function Chat() {
           : chat,
       ),
     );
-
+  setLoading(true);
     try {
       const res = await axios.post("https://ai-chat-gc96.vercel.app/chat", {
         message,
@@ -91,6 +91,8 @@ export default function Chat() {
       );
     } catch (err) {
       console.error("API error:", err);
+    } finally {
+      setLoading(false);
     }
 
     setMessage("");
@@ -130,6 +132,13 @@ export default function Chat() {
               <div className="content">{msg.content}</div>
             </div>
           ))}
+
+          {loading && (
+            <div className="message assistant">
+              <div className="avatar">🤖</div>
+              <div className="content loader">Thinking...</div>
+            </div>
+          )}
         </div>
 
         <div className="input-area">
