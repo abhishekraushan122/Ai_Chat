@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import authInstace from "./api/authInstance";
+import { endpoints } from "./api/endpoint";
 
 export default function Chat() {
   const [message, setMessage] = useState("");
@@ -48,7 +50,6 @@ export default function Chat() {
 
   // Send message
   const sendMessage = async () => {
-
     if (!message.trim()) return;
 
     let chatId = currentChatId;
@@ -71,12 +72,10 @@ export default function Chat() {
           : chat,
       ),
     );
-  setLoading(true);
+    setLoading(true);
     try {
-      const res = await axios.post("https://ai-chat-gc96.vercel.app/chat", {
-        message,
-      });
-
+      const res = await authInstace.post(endpoints.chat, { message });
+      console.log(res, "this is the reponse");
       const aiMsg = {
         role: "assistant",
         content: res.data.reply,
