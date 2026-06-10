@@ -8,7 +8,7 @@ export default function Chat() {
   const [chats, setChats] = useState([]);
   const [currentChatId, setCurrentChatId] = useState(null);
   const [loading, setLoading] = useState(false);
-  // Load chats from localStorage
+  
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("chats")) || [];
 
