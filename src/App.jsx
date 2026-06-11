@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import authInstace from "./api/authInstance";
 import { endpoints } from "./api/endpoint";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import { useNavigate } from "react-router-dom";
 
-export default function Chat() {
+function Chat() {
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [chats, setChats] = useState([]);
   const [currentChatId, setCurrentChatId] = useState(null);
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("chats")) || [];
 
@@ -124,6 +128,15 @@ export default function Chat() {
 
       {/* Chat Area */}
       <div className="chat-area">
+        <div className="chat-header">
+          <div className="logo">🤖 AI Assistant</div>
+
+          <div className="header-actions">
+            <button onClick={() => navigate("/login")}>Login</button>
+            <button>Profile</button>
+          </div>
+        </div>
+
         <div className="messages">
           {currentChat?.messages?.map((msg, index) => (
             <div key={index} className={`message ${msg.role}`}>
@@ -150,5 +163,17 @@ export default function Chat() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* <Route path="/" element={<Navigate to="/login" />} /> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Chat />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

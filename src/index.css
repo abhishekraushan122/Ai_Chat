@@ -9,6 +9,42 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.chat-header {
+  height: 60px;
+  background: #202123;
+  color: white;
+  border-bottom: 1px solid #3a3a3a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.header-actions button {
+  background: #343541;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
 .app {
   display: flex;
   height: 100vh;
