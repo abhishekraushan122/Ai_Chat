@@ -12,6 +12,7 @@ function Chat() {
   const [chats, setChats] = useState([]);
   const [currentChatId, setCurrentChatId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("chats")) || [];
@@ -79,7 +80,6 @@ function Chat() {
     setLoading(true);
     try {
       const res = await authInstace.post(endpoints.chat, { message });
-      console.log(res, "this is the reponse");
       const aiMsg = {
         role: "assistant",
         content: res.data.reply,
@@ -100,7 +100,11 @@ function Chat() {
 
     setMessage("");
   };
-
+    const handleLogout = () => {
+      localStorage.removeItem("token"); 
+      navigate("/login");
+    };
+const token = localStorage.getItem("token");
   return (
     <div className="app">
       {/* Sidebar */}
@@ -132,8 +136,21 @@ function Chat() {
           <div className="logo">🤖 AI Assistant</div>
 
           <div className="header-actions">
-            <button onClick={() => navigate("/login")}>Login</button>
-            <button>Profile</button>
+            {!token ? (
+              <button onClick={() => navigate("/login")}>Login</button>
+            ) : (
+              <div className="profile-dropdown">
+                <button onClick={() => setShowDropdown(!showDropdown)}>
+                  Profile ▼
+                </button>
+
+                {showDropdown && (
+                  <div className="dropdown-menu">
+                    <button onClick={handleLogout}>Logout</button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

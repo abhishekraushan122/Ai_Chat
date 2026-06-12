@@ -7,4 +7,5 @@ export const endpoints = {
     },
   },
   chat: `/chat`,
+  login: `/login`,
 };
