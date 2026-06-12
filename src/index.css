@@ -233,6 +233,8 @@ body {
 }
 @media (max-width: 768px) {
   .chat-area {
-    height: 100dvh; 
+   height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
